@@ -1,0 +1,15 @@
+# This file contains the indexing information for the recipes.
+# Lines like this are comments and don't matter.  Otherwise, the lines look like:
+#  recipe name:indexvalue1:indexvalue2:...
+# When the recipe "recipe name" is encountered (case sensitive, which is probably a bug),
+# then cookbookgen.pl will add entries of the form
+#  \index{indexvalue1}
+#  \index{indexvalue2}
+#  etc.
+# to the LaTeX file.  See https://en.wikibooks.org/wiki/LaTeX/Indexing#Sophisticated_indexing
+# for more details.
+#
+Banana Pancakes:banana:banana!pancakes:banana!pan!cakes:pancakes!banana:banana pancakes|textbf:yummy|seealso{banana pancakes}
+Hot Chocolate:hot chocolate|textbf:hot!chocolate:chocolate!hot
+Extra tall recipe:tall!recipe@\textsl{recipe}:tall!skinny recipe@\textbf{skinny recipe}:extra tall|see {tall recipe}
+Extra wide recipe:wide!recipe

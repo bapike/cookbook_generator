@@ -1,0 +1,14 @@
+# This file contains a list of the files whose sizes we might need to override.
+#
+# This is a comment.  Lines should look like:
+#    recipe_filename:sizethatshouldbeused
+# where sizethatshouldbeused is the parameter to \includegraphics, preferably
+# something that is in terms of \textwidth.
+# Unlike tags.txt, here we use the raw filename with the extension stripped
+# (for a 2-image recipe, we might need to resize the two files differently).
+#
+# See https://en.wikibooks.org/wiki/LaTeX/Importing_Graphics#Including_graphics
+# Notably, keepaspectratio=true will try to fit the image in a box of a given
+# width and height!
+Extra tall recipe:width=\textwidth,height=1.20\textwidth,keepaspectratio=true
+Extra wide recipe:width=\textwidth,height=1.55\textwidth,keepaspectratio=true
