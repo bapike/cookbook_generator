@@ -1,0 +1,95 @@
+\documentclass[10pt]{article}
+\pdfoutput=1
+%\usepackage[paperheight=3in,paperwidth=5in,margin=0.1in,%showframe,
+\usepackage[paperheight=3.75in,paperwidth=6in,margin=0.1in,%showframe,
+heightrounded]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+%\usepackage{calc}
+\usepackage{verbatim}
+\pagestyle{empty}
+\usepackage{gensymb} % For the degree symbol
+
+% https://www.sharelatex.com/learn/Multiple_columns
+\usepackage{multicol}
+
+\usepackage{hanging}
+
+\newcommand{\fah}{\degree{F}}
+
+\newenvironment{OLDingredientlist}[2]{%
+  \noindent%
+  \begin{minipage}[t][#1][t]{\textwidth}%
+     \begin{multicols*}{#2}%
+     \raggedright%
+     \raggedbottom%
+     \setlength{\parindent}{0pt}%
+     \setlength{\parskip}{0pt}%
+     \begin{hangparas}{10pt}{1}%
+}{%
+  \end{hangparas}%
+  \end{multicols*}%
+  \end{minipage}%
+} 
+
+
+
+
+% For minipage:
+% http://en.wikibooks.org/wiki/LaTeX/Boxes#minipage_and_parbox
+
+% Options:
+%   number of columns
+\newenvironment{ingredientlist}[1]{%
+  \noindent%
+  \begin{minipage}[t]{\textwidth}%
+     \begin{multicols}{#1}%
+     \raggedright%
+     \raggedbottom%
+     \setlength{\parindent}{0pt}%
+     \setlength{\parskip}{0pt}%
+     \begin{hangparas}{15pt}{1}%
+}{%
+  \end{hangparas}%
+  \end{multicols}%
+  \end{minipage}%
+}
+
+% Example:
+\begin{comment}
+% number of ingredients per column
+\begin{ingredientlist}{3}
+A \\
+B \\
+Here is a really long line just to see what happens arghdfjksd fdjklsdf jfd ksldf jsfdkl sfdjsfd j jsdkdfls\\
+C \\
+Here is a really long line just to see what happens arghdfjksd fdjklsdf jfd ksldf jsfdkl sfdjsfd j jsdkdfls\\
+Here is a really long line just to see what happens arghdfjksd fdjklsdf jfd ksldf jsfdkl sfdjsfd j jsdkdfls\\
+D \\
+E \\
+F
+\end{ingredientlist}
+
+Stuff written here
+\end{comment}
+
+
+
+% Name of recipe
+% Anything to appear on the left of the recipe (?, etc.)
+% Anything to appear on the right of the recipe (number servings, etc.)
+% number of cols of ingredients list
+% ingredients list
+% directions
+% anything bottom left (Cook Time?)
+% anything bottom right (Temperature)
+\newcommand{\recipe}[8]{%
+ \newpage%
+ \noindent\begin{center}\makebox[0pt][l]{\textit{#2}}\makebox[\textwidth][c]{\Large\textbf{#1}}\makebox[0pt][r]{\textit{#3}}\end{center}\par%
+ \begin{ingredientlist}{#4} #5 \end{ingredientlist}\par%
+ \par\medskip%
+ #6\par%
+ \noindent{\textbf{#7\hfill\textit{#8}}}\par%
+}
+ 
+\begin{document}
