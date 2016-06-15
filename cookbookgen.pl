@@ -70,11 +70,11 @@ END
 	# Subsections and recipes themselves are sorted alphabetically,
 	# or can be rearranged in the LaTeX file. 
 	chapters=>[( 
-		"starters", "Starters",
-		"side_dishes", "Side Dishes",
 		"main_dishes", "Main Dishes",
-		"desserts", "Desserts",
-		"DRINKS", "Drinks",
+		"DRINKS",      "Drinks",
+		"starters",    "Starters",
+		"side_dishes", "Side Dishes",
+		"desserts",    "Desserts",
 	)],
 );
 
