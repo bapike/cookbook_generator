@@ -86,6 +86,8 @@ if (-f $configfile and -r $configfile) {
 	print STDERR "Using default configuration.\n";
 }
 
+# TODO: should probably check configuration? Nah.
+
 
 # TODO
 # Known Issues:
