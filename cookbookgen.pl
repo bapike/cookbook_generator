@@ -560,8 +560,8 @@ for (my $i=0; $i<scalar(@{$config{chapters}}); $i+=2) {
 	my $chaptername = $config{chapters}[$i+1];
 	print STDERR "Using directory \"",$dirname,"\" to write chapter \"",$chaptername,"\"\n";
 	handle_toplevel_dir(
-		$config{image_dir}."/".($config{chapters}[$i]),
-		$config{chapters}[$i+1],
+		$dirname,
+		$chaptername,
 		\%tagsleft,
 		\%sizesleft);
 }
