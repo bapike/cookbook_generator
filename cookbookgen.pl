@@ -57,6 +57,20 @@ END
 Printed by Lulu.com in 
 US Letter Hardcover casewrap format
 END
+	# Consecutive entries in this array list the "directory name"
+	# (relative to the image_dir), 
+	# and "how the chapter should appear in the book", in the order
+	# of how they should appear in the book.
+	#
+	# Subsections and recipes themselves are sorted alphabetically,
+	# or can be rearranged in the LaTeX file. 
+	chapters=>[( 
+		"a. starters", "Starters",
+		"b. side dishes", "Side Dishes",
+		"c. main dishes", "Main Dishes",
+		"d. desserts", "Desserts",
+		"E. DRINKS", "Drinks",
+	)],
 );
 
 
@@ -531,12 +545,21 @@ sub handle_toplevel_dir {
 my %tagsleft=read_tags($config{tag_file});
 my %sizesleft=read_tags($config{sizes_file});
 
+# Write the LaTeX file.
+# Header:
 print $tex_head_1,$tex_head_2,$tex_head_3,$tex_head_4,$tex_head_5,$tex_head_6,$tex_head_7;
-handle_toplevel_dir($config{image_dir}."/"."a. starters",   "Starters",    \%tagsleft, \%sizesleft);
-handle_toplevel_dir($config{image_dir}."/"."b. side dishes","Side Dishes", \%tagsleft, \%sizesleft);
-handle_toplevel_dir($config{image_dir}."/"."c. main dishes","Main Dishes", \%tagsleft, \%sizesleft);
-handle_toplevel_dir($config{image_dir}."/"."d. desserts",   "Desserts",    \%tagsleft, \%sizesleft);
-handle_toplevel_dir($config{image_dir}."/"."E. DRINKS",     "Drinks",      \%tagsleft, \%sizesleft);
+# Body:
+for (my $i=0; $i<scalar(@{$config{chapters}}); $i+=2) {
+	my $dirname = $config{image_dir}."/".($config{chapters}[$i]);
+	my $chaptername = $config{chapters}[$i+1];
+	print STDERR "Using directory \"",$dirname,"\" to write chapter \"",$chaptername,"\"\n";
+	handle_toplevel_dir(
+		$config{image_dir}."/".($config{chapters}[$i]),
+		$config{chapters}[$i+1],
+		\%tagsleft,
+		\%sizesleft);
+}
+# Footer:
 print $tex_foot;
 
 # Check if there are any tags we never used!
