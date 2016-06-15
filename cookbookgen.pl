@@ -34,7 +34,10 @@ my %config = (
 	sizes_file=> "./sample/sizes.txt",
 	pdf_title => "A sample cookbook",
 	pdf_author=> "Jane Doe",
+	# This is LaTeX for the title page.  It's inside {titlepage} and
+	# {center} environments. 
 	title_page=><<'END',
+\null\vfill
 \textit{\Huge \textbf{A sample cookbook}}
 \\[\baselineskip]
 {\LARGE \textbf{The Doe Family Cookbook}} \\
@@ -51,6 +54,8 @@ Edited by her children, \textsc{John Doe}, \textsc{William Doe}, \\
 Version 0.6 \\
 \today
 END
+	# This is LaTeX for the back side of the title page. It's inside
+	# a {center} environment.
 	title_page_reverse=><<'END',
 \null
 \vfill
@@ -65,11 +70,11 @@ END
 	# Subsections and recipes themselves are sorted alphabetically,
 	# or can be rearranged in the LaTeX file. 
 	chapters=>[( 
-		"a. starters", "Starters",
-		"b. side dishes", "Side Dishes",
-		"c. main dishes", "Main Dishes",
-		"d. desserts", "Desserts",
-		"E. DRINKS", "Drinks",
+		"starters", "Starters",
+		"side_dishes", "Side Dishes",
+		"main_dishes", "Main Dishes",
+		"desserts", "Desserts",
+		"DRINKS", "Drinks",
 	)],
 );
 
@@ -323,7 +328,6 @@ my $tex_head_3 = << 'END';
 % This list of sample title pages was useful:
 %    ftp://ftp.tex.ac.uk/tex-archive/info/latex-samples/TitlePages/titlepages.pdf
 \begin{center}
-\null\vfill
 END
 
 my $tex_head_4 = $config{title_page};
