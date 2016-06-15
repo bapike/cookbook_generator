@@ -4,6 +4,7 @@
 # tags for the recipes; and a file containing any size overrides for the
 # recipes.
 #
+# 
 #
 # Copyright (C) 2016  Brian Pike
 #
@@ -23,17 +24,56 @@
 use strict;
 use warnings;
 
-my $image_dir  = "/home/bapike/make_book_of_recipes/images_to_use";
-my $tag_file   = "/home/bapike/make_book_of_recipes/tags.txt";
-my $sizes_file = "/home/bapike/make_book_of_recipes/sizes.txt";
+# We'll use an optional configfile so that I can use the script unmodified
+# for my personal project.  It looks just like the lines defining the default
+# value of the %config variable.  See http://www.perlmonks.org/?node_id=393426
+my $configfile = 'config.pl';
+my %config = (
+	image_dir => "./sample",
+	tag_file  => "./sample/tags.txt",
+	sizes_file=> "./sample/sizes.txt",
+	pdf_title => "A sample cookbook",
+	pdf_author=> "Jane Doe",
+	title_page=><<'END',
+\textit{\Huge \textbf{A sample cookbook}}
+\\[\baselineskip]
+{\LARGE \textbf{The Doe Family Cookbook}} \\
+% Make an integral symbol that's horizontal.
+% 109 degrees looks right
+\resizebox*{0.3\textwidth}{!}{\rotatebox{109}{$\displaystyle\int$}}
+\\
+\vfill
+\textit{\Large Collected by \textsc{Jane Doe}, et al.
+\\[0.1em]
+Edited by her children, \textsc{John Doe}, \textsc{William Doe}, \\
+\textsc{Fake Name}, and \textsc{Bobby Tables} } 
+\vfill
+Version 0.6 \\
+\today
+END
+	title_page_reverse=><<'END',
+\null
+\vfill
+Printed by Lulu.com in 
+US Letter Hardcover casewrap format
+END
+);
 
 
+if (-f $configfile and -r $configfile) {
+	print STDERR "Reading config file $configfile\n";
+	%config=do $configfile;
+} else {
+	print STDERR "Using default configuration.\n";
+}
 
+
+# TODO
 # Known Issues:
 # - because of graphicx limitations, may have some difficulty with image filenames that contain more than one consecutive spaces, or more than one dot? I've used grffile to try to address this, but...
 
 
-my $tex_head = << 'END';
+my $tex_head_1 = << 'END';
 \documentclass[12pt]{book}
 \pdfoutput=1
 \usepackage[pdftex]{graphicx}
@@ -182,8 +222,15 @@ marginparwidth=0cm,marginparsep=0.0cm
 %%%%%%%%%%%%% Setup PDF data
 \hypersetup{
  pdfinfo={
-    Title={Good Eats, The Pike Family Cookbook},
-   Author={Joanne Pike, et al.}
+% END tex_head_1
+END
+
+my $tex_head_2 = 
+"    Title={".$config{pdf_title}."},
+   Author={".$config{pdf_author}."}
+";
+
+my $tex_head_3 = << 'END';
  }
 }
 
@@ -263,30 +310,21 @@ marginparwidth=0cm,marginparsep=0.0cm
 %    ftp://ftp.tex.ac.uk/tex-archive/info/latex-samples/TitlePages/titlepages.pdf
 \begin{center}
 \null\vfill
-\textit{\Huge \textbf{Good Eats}}
-\\[\baselineskip]
-{\LARGE \textbf{The Pike Family Cookbook}} \\
-% Make an integral symbol that's horizontal.
-% 109 degrees looks right
-\resizebox*{0.3\textwidth}{!}{\rotatebox{109}{$\displaystyle\int$}}
-\\
-\vfill
-\textit{\Large Collected by \textsc{Joanne Pike}, et al.
-\\[0.1em]
-Edited by her children, \textsc{Brenda Pike}, \textsc{Amy Pike}, \\
-\textsc{David Pike}, and \textsc{Brian Pike} } 
-\vfill
-Version 0.6 \\
-\today
+END
+
+my $tex_head_4 = $config{title_page};
+
+my $tex_head_5 = << 'END';
 \end{center}
 \end{titlepage}
 %\clearpage
 
 \begin{center}
-\null
-\vfill
-Printed by Lulu.com in 
-US Letter Hardcover casewrap format
+END
+
+my $tex_head_6 = $config{title_page_reverse};
+
+my $tex_head_7 = << 'END';
 \end{center}
 \clearpage
 
@@ -352,11 +390,11 @@ sub read_tags {
 }
 
 sub get_list_of_dirs {
-	opendir(BASEDIR,$image_dir) or die $!;
+	opendir(BASEDIR,$config{image_dir}) or die $!;
 	while (my $basefile = readdir(BASEDIR)) {
 		# Take only the directories, not beginning with a "."
 		next if ($basefile =~ m/^\./);
-		next unless (-d "$image_dir/$basefile");
+		next unless (-d ($config{image_dir}."/".$basefile));
 		print "\"$basefile\",\n";
 	}
 	closedir(BASEDIR);
@@ -490,15 +528,15 @@ sub handle_toplevel_dir {
 
 
 # First slurp the tags.
-my %tagsleft=read_tags($tagfile);
-my %sizesleft=read_tags($sizesfile);
+my %tagsleft=read_tags($config{tag_file});
+my %sizesleft=read_tags($config{sizes_file});
 
-print $tex_head;
-handle_toplevel_dir($image_dir."/"."a. starters",   "Starters",    \%tagsleft, \%sizesleft);
-handle_toplevel_dir($image_dir."/"."b. side dishes","Side Dishes", \%tagsleft, \%sizesleft);
-handle_toplevel_dir($image_dir."/"."c. main dishes","Main Dishes", \%tagsleft, \%sizesleft);
-handle_toplevel_dir($image_dir."/"."d. desserts",   "Desserts",    \%tagsleft, \%sizesleft);
-handle_toplevel_dir($image_dir."/"."E. DRINKS",     "Drinks",      \%tagsleft, \%sizesleft);
+print $tex_head_1,$tex_head_2,$tex_head_3,$tex_head_4,$tex_head_5,$tex_head_6,$tex_head_7;
+handle_toplevel_dir($config{image_dir}."/"."a. starters",   "Starters",    \%tagsleft, \%sizesleft);
+handle_toplevel_dir($config{image_dir}."/"."b. side dishes","Side Dishes", \%tagsleft, \%sizesleft);
+handle_toplevel_dir($config{image_dir}."/"."c. main dishes","Main Dishes", \%tagsleft, \%sizesleft);
+handle_toplevel_dir($config{image_dir}."/"."d. desserts",   "Desserts",    \%tagsleft, \%sizesleft);
+handle_toplevel_dir($config{image_dir}."/"."E. DRINKS",     "Drinks",      \%tagsleft, \%sizesleft);
 print $tex_foot;
 
 # Check if there are any tags we never used!
