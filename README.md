@@ -14,10 +14,10 @@ makeindex sample.idx
 pdflatex sample.tex
 pdflatex sample.tex
 ```
-Then view `sample.pdf`.
+Then view [`sample.pdf`](sample.pdf).
 
 ## Configuration
-By default, `cookbookgen.pl` uses the built-in configuration data, which generates a sample cookbook using the fake recipes put in the `sample/` directory.  If it finds a file called `config.pl`, then it will use that configuration data instead.
+By default, `cookbookgen.pl` uses the built-in configuration data, which generates a sample cookbook using the fake recipes put in the [`sample/`](sample/) directory.  If it finds a file called `config.pl`, then it will use that configuration data instead.
 
 The configuration data specifies:
 * the base directory of the images
@@ -49,14 +49,18 @@ Consider a directory tree of the form:
 ```
 app/
 app/b.jpg
+app/foo/
 app/foo/e.jpg
 app/foo/d_1.jpg
 app/foo/d_2.jpg
+app/bar/
 app/bar/f.pdf
+desserts/
 desserts/Ice_cream.jpg
 desserts/Chocolate Steak.pdf
 ```
 where the configuration data says that the chapters are "Desserts and Yummies!" (pulled from `desserts/`) and then "Appetizers and more stuff" (pulled from `app/`).  Then the cookbook would be arranged as:
+
 1. Table of contents
 2. "Desserts and Yummies!" (chapter 1)
   1. "Chocolate Steak" (subsection 1.0.1, and a 1-image recipe)
@@ -89,8 +93,8 @@ can be used to add blank lines for these recipes to the `tag_file.txt`.
 
 The program also __gives warnings on stderr__ for each tag that is not used in the LaTeX file (e.g., `Tag unused :Foo`).
 
-### Custom sizing information. 
-A few image files may be strangely sized, such as [a few images in the `sample/starters/Weird sizes` directory](sample/starters/Weird sizes).  These may need to be given custom sizes so that the book looks and paginates reasonably.  This is completely optional.  See [the sample sizing file](sample/sizes.txt) for more information.
+### Custom sizing
+A few image files may be strangely sized, such as [a few images in the `sample/starters/Weird sizes` directory](sample/starters/Weird sizes).  These may need to be given custom sizes so that the book good and paginates well.  This is completely optional.  See [the sample sizing file](sample/sizes.txt) for more information.
 
 The program __gives warnings on stderr__ for each size that is not used in the LaTeX file (e.g., `Size unused :Foo`).
 
@@ -123,5 +127,5 @@ There are [many ways to write recipes in LaTeX](http://tex.stackexchange.com/que
 
 The source is available in [latex_recipe_template/](latex_recipe_template).  For instance, the [latex_recipe_template/Hot_Chocolate.tex](latex_recipe_template/Hot_Chocolate.tex) file results in [this PDF file](sample/DRINKS/Kid-friendly/Hot_Chocolate_1.pdf).
 
-This method can produce multi-page 5x7 PDFs, which must be split before they can be included in the book.  For this, I use the `pdfseparate` (in Debian, this is in the `poppler-utils` package).
+This method can produce multi-page PDFs, which must be split before they can be included in the book.  For this, I use the `pdfseparate` (in Debian, this is in the `poppler-utils` package).
 
