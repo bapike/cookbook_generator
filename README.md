@@ -17,7 +17,7 @@ pdflatex sample.tex
 Then view [`sample.pdf`](sample-output.pdf).
 
 ## Configuration
-By default, `cookbookgen.pl` uses the built-in configuration data, which generates a sample cookbook using the fake recipes put in the [`sample/`](sample/) directory.  If it finds a file called `config.pl`, then it will use that configuration data instead.
+By default, [`cookbookgen.pl`](cookbookgen.pl) uses the built-in configuration data, which generates a sample cookbook using the fake recipes put in the [`sample/`](sample/) directory.  If it finds a file called `config.pl`, then it will use that configuration data instead; see the [`cookbookgen.pl`](cookbookgen.pl) for details on how to make your own `config.pl`.
 
 The configuration data specifies:
 * the base directory of the images
