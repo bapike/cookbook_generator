@@ -14,7 +14,7 @@ makeindex sample.idx
 pdflatex sample.tex
 pdflatex sample.tex
 ```
-Then view [`sample.pdf`](sample.pdf).
+Then view [`sample.pdf`](sample-output.pdf).
 
 ## Configuration
 By default, `cookbookgen.pl` uses the built-in configuration data, which generates a sample cookbook using the fake recipes put in the [`sample/`](sample/) directory.  If it finds a file called `config.pl`, then it will use that configuration data instead.
@@ -98,7 +98,7 @@ A few image files may be strangely sized, such as [a few images in the `sample/s
 
 The program __gives warnings on stderr__ for each size that is not used in the LaTeX file (e.g., `Size unused :Foo`).
 
-#### How do I find oddly-sized images?
+##### How do I find oddly-sized images?
 It can be useful to generate a list of image files, sorted by their height:width ratio.  An example script that uses `identify` (from ImageMagick) is:
 ```
 # Generate a list of files in a directory.  For each, find the file size.
