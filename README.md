@@ -94,7 +94,7 @@ can be used to add blank lines for these recipes to the `tag_file.txt`.
 The program also __gives warnings on stderr__ for each tag that is not used in the LaTeX file (e.g., `Tag unused :Foo`).
 
 ### Custom sizing
-A few image files may be strangely sized, such as [a few images in the `sample/starters/Weird sizes` directory](sample/starters/Weird sizes).  These may need to be given custom sizes so that the book good and paginates well.  This is completely optional.  See [the sample sizing file](sample/sizes.txt) for more information.
+A few image files may be strangely sized, such as [a few images in the `sample/starters/Weird sizes` directory](sample/starters/Weird sizes).  These may need to be given custom sizes so that the book looks good and paginates well.  This is completely optional.  See [the sample sizing file](sample/sizes.txt) for more information.
 
 The program __gives warnings on stderr__ for each size that is not used in the LaTeX file (e.g., `Size unused :Foo`).
 
