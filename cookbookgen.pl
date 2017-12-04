@@ -25,9 +25,17 @@ use strict;
 use warnings;
 
 # We'll use an optional configfile so that I can use the script unmodified
-# for my personal project.  It looks just like the lines defining the default
-# value of the %config variable.  See http://www.perlmonks.org/?node_id=393426
-my $configfile = 'config.pl';
+# for my personal project.  See http://www.perlmonks.org/?node_id=393426
+my $configfile = './config.pl';
+# The configuration file should look like the lines defining the default
+# configuration (see below), e.g.:
+#   image_dir => ...,
+#   ...
+#   chapters=>[(
+#      ...
+#   ]],
+
+# Default configuration
 my %config = (
 	image_dir => "./sample",
 	tag_file  => "./sample/tags.txt",
